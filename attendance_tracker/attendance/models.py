@@ -11,3 +11,10 @@ class subject(models.Model):
         return f'{self.sub_name}:{self.user.username}'
     def att_perc(self):
         return self.present/self.totalclasses*100
+    def can_leave(self):
+        c=0
+        k=self.totalclasses+1
+        while self.present/k>=0.75:
+            c+=1
+            k+=1
+        return c
