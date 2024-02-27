@@ -9,7 +9,7 @@ def index(request):
     if request.user.is_authenticated:
         return render(request, 'attendance/index.html',{
             'username':request.user.username,
-            'subjects':subject.objects.all(),
+            'subjects':subject.objects.filter(user=request.user),
         })
     return render(request, 'attendance/index.html')
 
@@ -77,14 +77,34 @@ def add_sub(request):
             return HttpResponseRedirect(reverse("index"))
 
 def inc_att(request,id):
-    sub=subject.objects.get(id=id)
+    sub=subject.objects.get(id=id, user=request.user)
     sub.present+=1
     sub.totalclasses+=1
     sub.save()
     return HttpResponseRedirect(reverse("index"))
 
 def dec_att(request,id):
-    sub=subject.objects.get(id=id)
+    sub=subject.objects.get(id=id, user=request.user)
     sub.totalclasses+=1
     sub.save()
+    return HttpResponseRedirect(reverse("index"))
+
+def update_att(request,id):
+    if request.method=="GET":
+        sub=subject.objects.get(id=id, user=request.user)
+        return render(request,"attendance/edit_details.html",{'sub':sub})
+    else:
+        sub=subject.objects.get(id=id, user=request.user)
+        subname=request.POST.get('subname')
+        initotal=request.POST.get('initotal')
+        inipresent=request.POST.get('inipresent')
+        sub.sub_name=subname
+        sub.totalclasses=initotal
+        sub.present=inipresent
+        sub.save()
+        return HttpResponseRedirect(reverse("index"))
+
+def del_att(request,id):
+    sub=subject.objects.get(id=id, user=request.user)
+    sub.delete()
     return HttpResponseRedirect(reverse("index"))

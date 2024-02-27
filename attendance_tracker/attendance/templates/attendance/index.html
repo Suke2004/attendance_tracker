@@ -4,8 +4,10 @@
   <br><br><br>
   <h2>My subjects:(<a href="{% url 'addsub' %}">Add a new subject</a>)</h2>
   {% for i in subjects %}
-    <div style="height: 175px;width: 1000px;background-color:aqua;padding: 10px;">
+    <div style="height: 200px;width: 1000px;background-color:aqua;padding: 10px;">
       <h4>{{ i.sub_name }}</h4>
+      <a href="{% url 'updateatt' id=i.id %}">Update attendance details</a>
+      <a href="{% url 'delatt' id=i.id %}" style="color: red;">Delete attendance</a>
       <p>current attendance: {{ i.present }}/{{ i.totalclasses }}</p>
       <p>attendance percentage: {{ i.att_perc }}%</p>
       <a href="{% url 'incatt' id=i.id %}"><button style="background-color: green;border: 1px black;width: 50px;height: 30px;font-size: 20px;">+</button></a>

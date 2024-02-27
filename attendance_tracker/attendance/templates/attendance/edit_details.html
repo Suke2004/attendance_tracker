@@ -1,0 +1,9 @@
+{% if user.is_authenticated %}
+    <form action="{% url 'updateatt' id=sub.id %}" method="post">
+        {% csrf_token %}
+        <input autofocus class="form-control" type="text" name="subname" value="{{ sub.sub_name }}">
+        <input autofocus class="form-control" type="text" name="initotal" value="{{ sub.totalclasses }}">
+        <input autofocus class="form-control" type="text" name="inipresent" value="{{ sub.present }}">
+        <input type="submit" value="Edit subject">
+    </form>
+{% endif %}
