@@ -1,0 +1,21 @@
+{% if user.is_authenticated %}
+  <h1>logged in as {{ username }}</h1>
+  <a href="{% url 'logout' %}" style="color: red;">Logout</a>
+  <br><br><br>
+  <h2>My subjects:(<a href="{% url 'addsub' %}">Add a new subject</a>)</h2>
+  {% for i in subjects %}
+    <div style="height: 175px;width: 1000px;background-color:aqua;padding: 10px;">
+      <h4>{{ i.sub_name }}</h4>
+      <p>current attendance: {{ i.present }}/{{ i.totalclasses }}</p>
+      <p>attendance percentage: {{ i.att_perc }}%</p>
+      <a href="{% url 'incatt' id=i.id %}"><button style="background-color: green;border: 1px black;width: 50px;height: 30px;font-size: 20px;">+</button></a>
+      <a href="{% url 'decatt' id=i.id %}"><button style="background-color: red;border: 1px black;width: 50px;height: 30px;font-size: 20px;">-</button></a>
+    </div><br>
+  {% endfor %}
+  
+{% else %}
+  <h1>Welcome!</h1>
+  <br>
+  <a href="{% url 'login' %}">Login</a>
+  <a href="{% url 'signup' %}">Signup</a>
+{% endif %}
