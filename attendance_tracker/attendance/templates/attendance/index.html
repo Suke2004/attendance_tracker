@@ -1,52 +1,81 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
 {% if user.is_authenticated %}
-  <h1>logged in as {{ username }}</h1>
-  <a href="{% url 'logout' %}" style="color: red;">Logout</a>
-  <br><br><br>
-  <h2>My subjects:(<a href="{% url 'addsub' %}">Add a new subject</a>)</h2>
-  {% for i in subjects %}
-    <div style="height: 300px;width: 1000px;background-color:aqua;padding: 20px;border-radius: 30px;border: 5rem black;">
-      <h4>{{ i.sub_name }} (You can leave the next {{ i.can_leave }} class/es)</h4>
-      <a href="{% url 'updateatt' id=i.id %}">Update attendance details</a>
-      <a href="{% url 'delatt' id=i.id %}" style="color: red;">Delete attendance</a>
-      <p>Total classes till now: {{ i.totalclasses }}</p>
-      <p>Attended till now: {{ i.present }}</p>
-      <p>Missed till now: {{ i.absent }}</p>
-      <p>Current Attendance Aercentage: <strong>{{ i.att_perc }}%</strong></p>
-      <a href="{% url 'incatt' id=i.id %}"><button style="color: white;border-radius: 20px;background-color: green;border: black;width: 150px;height: 30px;font-size: 20px;">Present</button></a>
-      <a href="{% url 'decatt' id=i.id %}"><button style="color: white;border-radius: 20px;background-color: red;border: black;width: 150px;height: 30px;font-size: 20px;">Absent</button></a>
-    </div><br>
-  {% endfor %}
-  
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <body>
+        <div class="card">
+            <div class="heading">
+                <img src="{% static 'assets/logo.png' %}" width="60px">&nbsp;
+                <h1>OpenTrackr</h1>
+            </div>
+            <br>
+            {% block addsubject %}
+                <h1>You are logged in as {{ username }}</h1>
+                <br>
+                <div class="userops">
+                    <a href="{% url 'logout' %}"><img src="{% static 'assets/logout.gif' %}" width="30px">Logout</a>
+                    <a href="{% url 'addsub' %}"><img src="{% static 'assets/add.png' %}" width="30px">&nbsp;add a new subject</a>
+                </div>
+                <br>
+                {% block editsubject %}
+                {% endblock editsubject %}
+                <div class="wrap-container">
+                    {% for i in subjects %}
+                        <div class="subject-card">
+                            <h4>{{ i.sub_name }}<br><br>(You can leave the next {{ i.can_leave }} class/es)</h4>
+                            <br>
+                            <div class="subjectops">
+                                <a href="{% url 'updateatt' id=i.id %}">Update</a>
+                                &nbsp; &nbsp;
+                                <a href="{% url 'delatt' id=i.id %}" style="color: rgb(255, 118, 118);">Delete</a>
+                            </div>
+                            <br>
+                            <p>Total classes till now: {{ i.totalclasses }}</p>
+                            <p>Attended till now: {{ i.present }}</p>
+                            <p>Missed till now: {{ i.absent }}</p>
+                            <p>Current Attendance Percentage: <strong>{{ i.att_perc }}%</strong></p>
+                            <br>
+                            <div class="mark-ops">
+                                <a href="{% url 'incatt' id=i.id %}"><button class="submitbtn">Present</button></a>
+                                <a href="{% url 'decatt' id=i.id %}"><button class="submitbtn">Absent</button></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endblock addsubject %}
+        </div>
+    </body>
 {% else %}
- <div class="parent">
-    <div class="main">
-    <div class="card">
-    <div class="heading">
-      <img src="{% static 'assets/logo.png' %}" width="60px">&nbsp;
-      <h1>OpenTrackr</h1>
+    <div class="parent">
+        <div class="main">
+            <div class="card">
+                <div class="heading">
+                    <img src="{% static 'assets/logo.png' %}" width="60px">&nbsp;
+                    <h1>OpenTrackr</h1>
+                </div>
+                <br>
+                {% block content %}
+                    <br>
+                    <h1>Login</h1>
+                    <br>
+                    <form action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input autofocus class="form-control" type="text" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="password" placeholder="Password" required>
+                        </div>
+                        <input class="submitbtn" type="submit" value="Login">
+                    </form>
+                    <br>
+                    <div class="redirect">
+                        Don't have an account? <a href="{% url 'signup' %}">SignUp here</a>
+                    </div>
+                    <br>
+                {% endblock content %}
+                <br>
+            </div>
+        </div>
     </div>
-    <br>
-    {% block content %}
-    <h1>Login</h1>
-    <br>
-<form action="{% url 'login' %}" method="post">
-    {% csrf_token %}
-    <div class="form-group">
-      <input autofocus class="form-control" type="text" name="username" placeholder="Username" required>
-    </div>
-    <div class="form-group">
-      <input class="form-control" type="password" name="password" placeholder="Password" required>
-    </div>
-    <input class="submitbtn" type="submit" value="Login">
-</form>
-<br>
-<div class="redirect">
-  Don't have an account? <a href="{% url 'signup' %}">SignUp here</a>
-</div>
-{% endblock content %}
-</div>
-</div>
-</div>
 {% endif %}

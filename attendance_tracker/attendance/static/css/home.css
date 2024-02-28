@@ -1,0 +1,51 @@
+
+.userops{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.subject-card{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border: rgb(255, 255, 255) solid 1px;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.subjectops{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.mark-ops{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+
+}
+
+.submitbtn{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: #15171d;
+    color: #fff;
+}
+
+.wrap-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+}
+
+.subjectops a{
+    padding: 8px;
+    background-color: #2d3a63;
+}

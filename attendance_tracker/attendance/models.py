@@ -12,7 +12,7 @@ class subject(models.Model):
     def absent(self):
         return self.totalclasses-self.present
     def att_perc(self):
-        return self.present/self.totalclasses*100
+        return round(self.present/self.totalclasses*100,2)
     def can_leave(self):
         c=0
         k=self.totalclasses+1

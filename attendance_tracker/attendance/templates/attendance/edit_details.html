@@ -1,3 +1,5 @@
+{% extends 'attendance/index.html' %}
+{% block editsubject %}
 {% if user.is_authenticated %}
     <form action="{% url 'updateatt' id=sub.id %}" method="post">
         {% csrf_token %}
@@ -7,6 +9,7 @@
         <input autofocus class="form-control" type="text" name="initotal" value="{{ sub.totalclasses }}">
         <p>Total present:</p>
         <input autofocus class="form-control" type="text" name="inipresent" value="{{ sub.present }}">
-        <input type="submit" value="Edit subject">
+        <input class="submitbtn" type="submit" value="Edit subject">
     </form>
 {% endif %}
+{% endblock editsubject %}
