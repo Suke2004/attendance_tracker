@@ -4,13 +4,16 @@
   <br><br><br>
   <h2>My subjects:(<a href="{% url 'addsub' %}">Add a new subject</a>)</h2>
   {% for i in subjects %}
-    <div style="height: 200px;width: 1000px;background-color:aqua;padding: 20px;border-radius: 30px;border: 5rem black;">
+    <div style="height: 300px;width: 1000px;background-color:aqua;padding: 20px;border-radius: 30px;border: 5rem black;">
       <h4>{{ i.sub_name }} (You can leave the next {{ i.can_leave }} class/es)</h4>
       <a href="{% url 'updateatt' id=i.id %}">Update attendance details</a>
       <a href="{% url 'delatt' id=i.id %}" style="color: red;">Delete attendance</a>
+      <p>Total classes till now: {{ i.totalclasses }}</p>
+      <p>Attended till now: {{ i.present }}</p>
+      <p>Missed till now: {{ i.absent }}</p>
       <p>Current Attendance Aercentage: <strong>{{ i.att_perc }}%</strong></p>
-      <a href="{% url 'incatt' id=i.id %}"><button style="color: white;border-radius: 20px;background-color: green;border: black;width: 50px;height: 30px;font-size: 20px;">+</button></a>
-      <a href="{% url 'decatt' id=i.id %}"><button style="color: white;border-radius: 20px;background-color: red;border: black;width: 50px;height: 30px;font-size: 20px;">-</button></a>
+      <a href="{% url 'incatt' id=i.id %}"><button style="color: white;border-radius: 20px;background-color: green;border: black;width: 150px;height: 30px;font-size: 20px;">Present</button></a>
+      <a href="{% url 'decatt' id=i.id %}"><button style="color: white;border-radius: 20px;background-color: red;border: black;width: 150px;height: 30px;font-size: 20px;">Absent</button></a>
     </div><br>
   {% endfor %}
   

@@ -9,6 +9,8 @@ class subject(models.Model):
 
     def __str__(self):
         return f'{self.sub_name}:{self.user.username}'
+    def absent(self):
+        return self.totalclasses-self.present
     def att_perc(self):
         return self.present/self.totalclasses*100
     def can_leave(self):
