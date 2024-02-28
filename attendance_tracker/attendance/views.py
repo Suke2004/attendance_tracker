@@ -16,7 +16,7 @@ def index(request):
 def user_signup(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse("index"))
-    if request.method == "POST":
+    elif request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
         password = request.POST["password"]
@@ -45,7 +45,7 @@ def user_signup(request):
 def user_login(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse("index"))
-    if request.method == "POST":
+    elif request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
@@ -54,11 +54,11 @@ def user_login(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "attendance/login.html", {
+            return render(request, "attendance/index.html", {
                 "message": "Invalid username and/or password."
             })
     else:
-        return render(request, "attendance/login.html")
+        return render(request, "attendance/index.html")
 
 def user_logout(request):
     logout(request)
