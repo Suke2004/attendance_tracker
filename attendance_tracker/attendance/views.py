@@ -103,6 +103,11 @@ def update_att(request,id):
         subname=request.POST.get('subname')
         initotal=request.POST.get('initotal')
         inipresent=request.POST.get('inipresent')
+
+        if inipresent > initotal:
+                messages.error(request, 'Total initial presence cannot be greater than total initial classes')
+                return render(request,"attendance/edit_details.html",{'sub':sub})
+        
         sub.sub_name=subname
         sub.totalclasses=initotal
         sub.present=inipresent
