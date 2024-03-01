@@ -1,6 +1,13 @@
 {% extends 'attendance/index.html' %}
 {% block addsubject %}
 {% if user.is_authenticated %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     <form action="{% url 'addsub' %}" method="post">
         {% csrf_token %}
         <input autofocus class="form-control submitbtn" type="text" name="subname" placeholder="Subject name">

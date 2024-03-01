@@ -4,6 +4,7 @@ from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout 
+from django.contrib import messages
 
 def index(request):
     if request.user.is_authenticated:
@@ -72,6 +73,10 @@ def add_sub(request):
             subname=request.POST.get('subname')
             initotal=request.POST.get('initotal')
             inipresent=request.POST.get('inipresent')
+
+            if inipresent > initotal:
+                messages.error(request, 'Total initial presence cannot be greater than total initial classes')
+                return render(request,"attendance/add_sub.html")            
             sub=subject(sub_name=subname,user=request.user,totalclasses=initotal,present=inipresent)
             sub.save()
             return HttpResponseRedirect(reverse("index"))
