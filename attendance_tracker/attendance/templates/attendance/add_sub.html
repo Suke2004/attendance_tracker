@@ -3,9 +3,9 @@
 {% if user.is_authenticated %}
     <form action="{% url 'addsub' %}" method="post">
         {% csrf_token %}
-        <input autofocus class="form-control" type="text" name="subname" placeholder="Subject name">
-        <input autofocus class="form-control" type="text" name="initotal" placeholder="Total initial classes">
-        <input autofocus class="form-control" type="text" name="inipresent" placeholder="Total initial presence">
+        <input autofocus class="form-control submitbtn" type="text" name="subname" placeholder="Subject name">
+        <input autofocus class="form-control submitbtn" type="text" name="initotal" placeholder="Total initial classes">
+        <input autofocus class="form-control submitbtn" type="text" name="inipresent" placeholder="Total initial presence">
         <input class="submitbtn" type="submit" value="Add subject">
     </form>
 

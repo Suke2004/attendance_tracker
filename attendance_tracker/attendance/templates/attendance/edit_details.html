@@ -4,11 +4,11 @@
     <form action="{% url 'updateatt' id=sub.id %}" method="post">
         {% csrf_token %}
         <p>Subject name:</p>
-        <input autofocus class="form-control" type="text" name="subname" value="{{ sub.sub_name }}">
+        <input autofocus class="form-control submitbtn" type="text" name="subname" value="{{ sub.sub_name }}">
         <p>Total classes:</p>
-        <input autofocus class="form-control" type="text" name="initotal" value="{{ sub.totalclasses }}">
+        <input autofocus class="form-control submitbtn" type="text" name="initotal" value="{{ sub.totalclasses }}">
         <p>Total present:</p>
-        <input autofocus class="form-control" type="text" name="inipresent" value="{{ sub.present }}">
+        <input autofocus class="form-control submitbtn" type="text" name="inipresent" value="{{ sub.present }}">
         <input class="submitbtn" type="submit" value="Edit subject">
     </form>
 {% endif %}
